@@ -48,11 +48,13 @@ router.post('/news/add', (req, res) => {
 
         res.redirect('/admin');
     })
-    // res.render('admin/news-form', {
-    //     title: 'Dodaj news',
-    //     body,
-    //     errors
 });
-// })
+
+// Delete news
+router.get('/news/delete/:id', (req, res) => {
+    News.findByIdAndDelete(req.params.id, error => {
+        res.redirect('/admin');
+    })
+})
 
 module.exports = router;
