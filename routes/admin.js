@@ -14,8 +14,11 @@ router.all('*', (req, res, next) => {
 
 /* GET home page. */
 router.get('/', (req, res) => {
-    res.render('admin/index', {
-        title: 'Admin'
+    const data = News.find({}, (error, data) => {
+        res.render('admin/index', {
+            title: 'Admin',
+            data
+        });
     });
 });
 
@@ -34,13 +37,22 @@ router.post('/news/add', (req, res) => {
     const errors = newsData.validateSync();
 
     newsData.save(error => {
-        console.log(error);
+        if (error) {
+            res.render('admin/news-form', {
+                title: 'Dodaj news',
+                errors,
+                body
+            });
+            return;
+        }
+
+        res.redirect('/admin');
     })
-    res.render('admin/news-form', {
-        title: 'Dodaj news',
-        body,
-        errors
-    });
-})
+    // res.render('admin/news-form', {
+    //     title: 'Dodaj news',
+    //     body,
+    //     errors
+});
+// })
 
 module.exports = router;
