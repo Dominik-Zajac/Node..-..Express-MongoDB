@@ -14,18 +14,24 @@ router.all('*', (req, res, next) => {
 
 /* GET home page. */
 router.get('/', (req, res) => {
-    const newsData = new News({
-        title: 'Tytul testowy',
-        description: 'Opis'
-    });
+    // const newsData = new News({
+    //     title: 'Tytul testowy',
+    //     description: 'Opis'
+    // });
 
-    newsData.save(error => {
-        console.log(error);
-    })
+    // newsData.save(error => {
+    //     console.log(error);
+    // })
 
-    res.render('admin', {
+    res.render('admin/index', {
         title: 'Admin'
     });
 });
+
+router.get('/news/add', (req, res) => {
+    res.render('admin/news-form', {
+        title: 'Dodaj news'
+    })
+})
 
 module.exports = router;
